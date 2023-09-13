@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.QuanLyDienThoai>
+
+@{ 
+    var LSP = Session["LSP"].ToString();
+    string name = "phụ kiện";
+    if(LSP == "1")
+    {
+        name = "điện thoại";
+    }
+}
+<style>
+    #admin__form{
+        display: none;
+    }
+
+    .data-view {
+        margin: 0 !important;
+        margin-top: 60px !important;
+    }
+    .heading {
+        position: fixed;
+        left: 20%;
+        top: 0;
+        right: 0;
+    }
+
+    .table-heading {
+        top: 60px;
+    }
+</style>
+
+<div class="data-view">
+    <table class="table">
+        <tr class="table-heading"></tr>
+        <tr class="table-heading relative">
+            <th style="width: 250px">
+                Mã @name
+            </th>
+            <th>
+                Tên @name
+            </th>
+            <th>
+                Giá nhập
+            </th>
+            <th>
+                Giá bán
+            </th>
+            <th>
+                Hãng
+            </th>
+            @if (LSP == "1")
+            {
+                <th>
+                    Dung lượng
+                </th>
+            }
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Số lượng
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr class="row-item">
+                <td id="@Html.DisplayNameFor(model => model.SP_Ma)">
+                    <p>@item.SP_Ma</p>
+                </td>
+                <td id="@Html.DisplayNameFor(model => model.SP_Ten)">
+                    <p>@item.SP_Ten</p>
+                </td>
+                <td id="@Html.DisplayNameFor(model => model.SP_GiaNhap)">
+                    <p>@item.SP_GiaNhap</p>
+                </td>
+                <td id="@Html.DisplayNameFor(model => model.SP_GiaBan)">
+                    <p>@item.SP_GiaBan</p>
+                </td>
+                <td id="@Html.DisplayNameFor(model => model.H_TenHang)">
+                    <p>@item.H_TenHang</p>
+                </td>
+                @if (LSP == "1")
+                {
+                    <td id="@Html.DisplayNameFor(model => model.SP_DungLuong)">
+                        <p>@item.SP_DungLuong</p>
+                    </td>
+                }
+                <td id="@Html.DisplayNameFor(model => model.SP_Anh)">
+                    <img src="~/Assets/Image/Product/@item.SP_Anh" width="100" />
+                </td>
+                <td id="@Html.DisplayNameFor(model => model.SP_SoLuong)">
+                    @if (@item.SP_SoLuongBan == null)
+                    {
+                        <p>@item.SP_SoLuongMua / 0 / @item.SP_SoLuong</p>
+                    }
+                    else
+                    {
+                        <p>@item.SP_SoLuongMua / @item.SP_SoLuongBan / @item.SP_SoLuong</p>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<script>
+    var rows = $(".row-item");
+    var firstRow = $(".row-item").first();
+</script>
+

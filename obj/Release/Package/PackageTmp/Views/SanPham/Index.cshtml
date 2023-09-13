@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .success-container,
+    .error-container {
+        z-index: 99999;
+    }
+</style>
+
+<div>
+    <div class="heading ma-b-16">
+        <div class="row ali-center jus-between h-100">
+            @Html.Partial("_SanPhamHeading")
+        </div>
+    </div>
+
+    <div class="data-view-list">
+
+    </div>
+
+    <div class="success-container">
+        <p>Cập nhập đơn hàng thành công!</p>
+        <button>OK</button>
+    </div>
+
+    <div class="error-container">
+        <p>Cập nhập đơn hàng thất bại</p>
+        <button>OK</button>
+    </div>
+</div>
+
+<script>
+    var navItems = $(".heading .title");
+    var table = $(".data-view-list");
+
+
+    RenderTable();
+
+    Array.from(navItems).forEach(navItem => {
+        navItem.addEventListener("click", e => {
+            $(".heading .title.active").removeClass("active");
+            navItem.classList.add("active");
+
+            RenderTable();
+        });
+    });
+
+    function RenderTable() {
+        var activeNav = $(".heading .title.active");
+
+        $.ajax({
+            url: activeNav.data("link"),
+            success: function (result) {
+                table.html(result);
+            }
+        });
+    }
+</script>

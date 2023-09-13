@@ -1,0 +1,164 @@
+﻿@using DAMH_MuaBanVaSuaChuaDienThoai.Models
+@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.DonHang>
+
+<style>
+    .heading {
+        padding: 0 12px;
+        margin-bottom: 16px;
+    }
+</style>
+
+<div>
+    <form action="/" method="get" id="admin__form">
+        <div class="heading">
+            <div class="row ali-center jus-between h-100">
+                <p class="title">Thông tin đơn hàng</p>
+            </div>
+        </div>
+        <div class="row p-b-24">
+            <div class="h-6">
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <div class="row ali-center">
+                            <p class="title">Nhân viên:</p>
+
+                            <select name="NV_ID" rule="required" id="NV_ID" class="form__control">
+                                @{
+                                    foreach (NHANVIEN item in ViewBag.listNhanVien)
+                                    {
+                                        <option value="@item.NV_ID">@item.NV_ID. @item.NV_TEN </option>
+
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <div class="row ali-center">
+                            <p class="title">Ngày lập: </p>
+                            <input type="datetime" name="PX_NGAY" value="@DateTime.Now.ToShortDateString()" disabled id="fullname" class="form__control" placeholder="">
+                        </div>
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6">
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <div class="row ali-center">
+                            <p class="title">Khách hàng:</p>
+                            <select name="KH_SDT" rule="required" id="KH_SDT" class="form__control">
+                                @{
+                                    foreach (KHACHHANG item in ViewBag.listKhachHang)
+                                    {
+                                        <option value="@item.KH_SDT">@item.KH_SDT - @item.KH_TEN</option>
+
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+
+                <div class="p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <div class="row ali-center jus-end h-100">
+                            <button class="add-btn">Thêm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="data-view">
+        @Html.Partial("_ListDonHangPartial", Model)
+    </div>
+
+    <div class="success-container">
+        <p>Cập nhập đơn hàng thành công!</p>
+        <button>OK</button>
+    </div>
+
+    <div class="error-container">
+        <p>Cập nhập đơn hàng thất bại</p>
+        <button>OK</button>
+    </div>
+</div>
+
+<script>
+    var firstRow = $(".row-item").first();
+    var refreshBtn = $(".refresh-btn");
+    var addBtn = $(".add-btn");
+    var form = new Validate("#admin__form");
+    var closeBtn = $(".success-container button");
+    var closeBtn2 = $(".error-container button");
+    var table = $(".data-view");
+
+    table.css("margin-top", $("#admin__form").height() + "px");
+
+    $("#admin__form").submit(e => {
+        table.css("margin-top", $("#admin__form").height() + "px");
+    });
+
+    addBtn.click(e => {
+        form.onSubmit = function (value) {
+            $.ajax({
+                url: "/DonHang/Add",
+                type: "get",
+                data: $("#admin__form").serialize(),
+                success: function (result) {
+                    $(".data-view").html(result);
+                    $(".success-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".success-container.active").removeClass("active");
+                    }, 1500);
+                },
+                error: function (result) {
+                    $(".error-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".error-container.active").removeClass("active");
+                    }, 1500);
+                }
+            });
+        }
+    });
+
+    // Tắt thông báo
+    closeBtn.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    closeBtn2.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    // Làm mới form
+    refreshBtn.click(e => {
+        ClearForm();
+    });
+
+    function ClearForm() {
+        var checkeds = $("input[type=radio]").filter(":checked");
+
+        $("input[name=NV_HOTEN]").val("");
+        $("input[name=NV_NGAYSINH]").val("");
+        $("input[name=NV_DIACHI]").val("");
+        $("input[name=NV_SDT]").val("");
+
+        Array.from(checkeds).forEach(checked => {
+            checked.checked = false;
+        });
+
+        RefreshAnimate();
+    }
+</script>   

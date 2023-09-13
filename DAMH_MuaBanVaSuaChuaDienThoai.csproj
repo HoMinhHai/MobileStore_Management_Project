@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B32B3F53-F47D-4F60-977E-2EFE676ABC2B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DAMH_MuaBanVaSuaChuaDienThoai</RootNamespace>
+    <AssemblyName>DAMH_MuaBanVaSuaChuaDienThoai</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44352</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Css\admin.css" />
+    <Content Include="Assets\Css\base.css" />
+    <Content Include="Assets\Css\error.css" />
+    <Content Include="Assets\Css\main.css" />
+    <Content Include="Assets\Css\m_p.css" />
+    <Content Include="Assets\Css\product.css" />
+    <Content Include="Assets\Css\product_detail.css" />
+    <Content Include="Assets\Css\responsive.css" />
+    <Content Include="Assets\Css\shared.css" />
+    <Content Include="Assets\Css\validate.css" />
+    <Content Include="Assets\Image\Banner\Accessory\banner1.jpg" />
+    <Content Include="Assets\Image\Banner\Accessory\banner2.jpg" />
+    <Content Include="Assets\Image\Banner\Home\banner1.jpg" />
+    <Content Include="Assets\Image\Banner\Home\banner2.jpg" />
+    <Content Include="Assets\Image\Banner\Home\banner3.jpg" />
+    <Content Include="Assets\Image\Banner\Home\banner4.jpg" />
+    <Content Include="Assets\Image\Banner\Phone\banner1.jpg" />
+    <Content Include="Assets\Image\Banner\Phone\banner2.jpg" />
+    <Content Include="Assets\Image\CuaHang\DangNhap.png" />
+    <Content Include="Assets\Image\CuaHang\panel.jpg" />
+    <Content Include="Assets\Image\Layout\Error\astronaut.svg" />
+    <Content Include="Assets\Image\Layout\Error\bg_purple.png" />
+    <Content Include="Assets\Image\Layout\Error\earth.svg" />
+    <Content Include="Assets\Image\Layout\Error\error.png" />
+    <Content Include="Assets\Image\Layout\Error\moon.svg" />
+    <Content Include="Assets\Image\Layout\Error\overlay_stars.svg" />
+    <Content Include="Assets\Image\Layout\Error\rocket.svg" />
+    <Content Include="Assets\Image\Layout\Tag\phone-tag.png" />
+    <Content Include="Assets\Image\Product\SP21-2.png" />
+    <Content Include="Assets\Image\Product\SP21-3.png" />
+    <Content Include="Assets\Image\Product\SP21-4.png" />
+    <Content Include="Assets\Image\Product\SP21-5.png" />
+    <Content Include="Assets\Image\Product\SP22-2.png" />
+    <Content Include="Assets\Image\Product\SP22-3.png" />
+    <Content Include="Assets\Image\Product\SP22-4.png" />
+    <Content Include="Assets\Image\Product\SP22-5.png" />
+    <Content Include="Assets\Image\Product\SP23-2.png" />
+    <Content Include="Assets\Image\Product\SP23-3.png" />
+    <Content Include="Assets\Image\Product\SP23-4.png" />
+    <Content Include="Assets\Image\Product\SP23-5.png" />
+    <Content Include="Assets\Image\Product\SP31-0.png" />
+    <Content Include="Assets\Image\Product\SP31-1.png" />
+    <Content Include="Assets\Image\Product\SP31-2.png" />
+    <Content Include="Assets\Image\Product\SP31-3.png" />
+    <Content Include="Assets\Image\Product\SP31-4.png" />
+    <Content Include="Assets\Image\Product\SP31-6.png" />
+    <Content Include="Assets\Image\Product\SP31-7.png" />
+    <Content Include="Assets\Image\Product\SP4-2.png" />
+    <Content Include="Assets\Image\Product\SP4-3.png" />
+    <Content Include="Assets\Image\Product\SP4-4.png" />
+    <Content Include="Assets\Image\Product\SP4-5.png" />
+    <Content Include="Assets\Image\Store\136 icon-no-bg.png" />
+    <Content Include="Assets\Image\Store\136 icon.png" />
+    <Content Include="Assets\Image\Store\136 store.svg" />
+    <Content Include="Assets\Image\Layout\Category\accessory-category.jpg" />
+    <Content Include="Assets\Image\Layout\Category\phone-category.jpg" />
+    <Content Include="Assets\Image\Layout\Decoration\newyear-left.jpg" />
+    <Content Include="Assets\Image\Layout\Decoration\newyear-right.jpg" />
+    <Content Include="Assets\Image\Layout\Policy\back.png" />
+    <Content Include="Assets\Image\Layout\Policy\checked.png" />
+    <Content Include="Assets\Image\Layout\Policy\shield.png" />
+    <Content Include="Assets\Image\Layout\Policy\truck.png" />
+    <Content Include="Assets\Image\Layout\Tag\accessory-tag.png" />
+    <Content Include="Assets\Image\Layout\user.jpg" />
+    <Content Include="Assets\Image\Product\SP1-1.png" />
+    <Content Include="Assets\Image\Product\SP1-2.png" />
+    <Content Include="Assets\Image\Product\SP1-3.png" />
+    <Content Include="Assets\Image\Product\SP1-4.png" />
+    <Content Include="Assets\Image\Product\SP1-5.png" />
+    <Content Include="Assets\Image\Product\SP10-1.png" />
+    <Content Include="Assets\Image\Product\SP10-2.png" />
+    <Content Include="Assets\Image\Product\SP10-3.png" />
+    <Content Include="Assets\Image\Product\SP10-4.png" />
+    <Content Include="Assets\Image\Product\SP10-5.png" />
+    <Content Include="Assets\Image\Product\SP11-1.png" />
+    <Content Include="Assets\Image\Product\SP12-1.png" />
+    <Content Include="Assets\Image\Product\SP13-1.png" />
+    <Content Include="Assets\Image\Product\SP14-1.png" />
+    <Content Include="Assets\Image\Product\SP15-1.png" />
+    <Content Include="Assets\Image\Product\SP16-1.png" />
+    <Content Include="Assets\Image\Product\SP17-1.png" />
+    <Content Include="Assets\Image\Product\SP18-1.png" />
+    <Content Include="Assets\Image\Product\SP19-1.png" />
+    <Content Include="Assets\Image\Product\SP2-1.png" />
+    <Content Include="Assets\Image\Product\SP2-2.png" />
+    <Content Include="Assets\Image\Product\SP2-3.png" />
+    <Content Include="Assets\Image\Product\SP2-4.png" />
+    <Content Include="Assets\Image\Product\SP2-5.png" />
+    <Content Include="Assets\Image\Product\SP20-1.png" />
+    <Content Include="Assets\Image\Product\SP21-1.png" />
+    <Content Include="Assets\Image\Product\SP22-1.png" />
+    <Content Include="Assets\Image\Product\SP23-1.png" />
+    <Content Include="Assets\Image\Product\SP24-1.png" />
+    <Content Include="Assets\Image\Product\SP24-2.png" />
+    <Content Include="Assets\Image\Product\SP24-3.png" />
+    <Content Include="Assets\Image\Product\SP24-4.png" />
+    <Content Include="Assets\Image\Product\SP24-5.png" />
+    <Content Include="Assets\Image\Product\SP25-1.png" />
+    <Content Include="Assets\Image\Product\SP25-2.png" />
+    <Content Include="Assets\Image\Product\SP25-3.png" />
+    <Content Include="Assets\Image\Product\SP26-1.png" />
+    <Content Include="Assets\Image\Product\SP27-1.png" />
+    <Content Include="Assets\Image\Product\SP28-1.png" />
+    <Content Include="Assets\Image\Product\SP29-1.png" />
+    <Content Include="Assets\Image\Product\SP3-1.png" />
+    <Content Include="Assets\Image\Product\SP30-1.png" />
+    <Content Include="Assets\Image\Product\SP31-5.png" />
+    <Content Include="Assets\Image\Product\SP32-1.png" />
+    <Content Include="Assets\Image\Product\SP33-1.png" />
+    <Content Include="Assets\Image\Product\SP33-2.png" />
+    <Content Include="Assets\Image\Product\SP33-3.png" />
+    <Content Include="Assets\Image\Product\SP33-4.png" />
+    <Content Include="Assets\Image\Product\SP33-5.png" />
+    <Content Include="Assets\Image\Product\SP34-1.png" />
+    <Content Include="Assets\Image\Product\SP35-1.png" />
+    <Content Include="Assets\Image\Product\SP36-1.png" />
+    <Content Include="Assets\Image\Product\SP37-1.png" />
+    <Content Include="Assets\Image\Product\SP38-1.png" />
+    <Content Include="Assets\Image\Product\SP39-1.png" />
+    <Content Include="Assets\Image\Product\SP4-1.png" />
+    <Content Include="Assets\Image\Product\SP5-1.png" />
+    <Content Include="Assets\Image\Product\SP5-2.png" />
+    <Content Include="Assets\Image\Product\SP5-3.png" />
+    <Content Include="Assets\Image\Product\SP5-4.png" />
+    <Content Include="Assets\Image\Product\SP5-5.png" />
+    <Content Include="Assets\Image\Product\SP6-1.png" />
+    <Content Include="Assets\Image\Product\SP6-2.png" />
+    <Content Include="Assets\Image\Product\SP6-3.png" />
+    <Content Include="Assets\Image\Product\SP6-4.png" />
+    <Content Include="Assets\Image\Product\SP6-5.png" />
+    <Content Include="Assets\Image\Product\SP7-1.png" />
+    <Content Include="Assets\Image\Product\SP8-1.png" />
+    <Content Include="Assets\Image\Product\SP9-1.png" />
+    <Content Include="Assets\Image\Product\SP9-2.png" />
+    <Content Include="Assets\Image\Product\SP9-3.png" />
+    <Content Include="Assets\Image\Product\SP9-4.png" />
+    <Content Include="Assets\Image\Product\SP9-5.png" />
+    <Content Include="Assets\Image\Store\DangNhap.png" />
+    <Content Include="Assets\Image\Store\panel.jpg" />
+    <Content Include="Assets\Script\jquery-migrate.min.js" />
+    <Content Include="Assets\Script\jquery.min.js" />
+    <Content Include="Assets\Script\main.js" />
+    <Content Include="Assets\Script\validate.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ChatBoxController.cs" />
+    <Compile Include="Controllers\DangNhapController.cs" />
+    <Compile Include="Controllers\DonHangController.cs" />
+    <Compile Include="Controllers\HoaDonController.cs" />
+    <Compile Include="Controllers\KhachHangController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
+    <Compile Include="Controllers\NhaPhanPhoiController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Connect.cs" />
+    <Compile Include="Models\CT_DonHang.cs" />
+    <Compile Include="Models\CT_HDNhap.cs" />
+    <Compile Include="Models\DonHang.cs" />
+    <Compile Include="Models\HoaDonNhap.cs" />
+    <Compile Include="Models\QuanLyDienThoai.cs">
+      <DependentUpon>QuanLyDienThoai.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuanLyDienThoai.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuanLyDienThoai.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shared.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="Models\QuanLyDienThoai.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>QuanLyDienThoai.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\QuanLyDienThoai.dbml.layout">
+      <DependentUpon>QuanLyDienThoai.dbml</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <Content Include="Views\Shared\CommentPartial.cshtml" />
+    <Content Include="Views\Shared\_Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Views\Store\_Accessory.cshtml" />
+    <Content Include="Views\Store\_Home.cshtml" />
+    <Content Include="Views\Store\_Phone.cshtml" />
+    <Content Include="Views\Store\_ProductDetail.cshtml" />
+    <Content Include="Views\Store\_Repair.cshtml" />
+    <Content Include="Views\Store\_Search.cshtml" />
+    <Content Include="Views\Store\_UserCart.cshtml" />
+    <Content Include="Views\DangNhap\Index.cshtml" />
+    <Content Include="Views\NhaPhanPhoi\Index.cshtml" />
+    <Content Include="Views\NhanVien\Index.cshtml" />
+    <Content Include="Views\HoaDon\_HoaDonNhap.cshtml" />
+    <Content Include="Views\HoaDon\_HoaDonHeading.cshtml" />
+    <Content Include="Views\HoaDon\_HoaDonXuat.cshtml" />
+    <Content Include="Views\HoaDon\_ChiTietNhap.cshtml" />
+    <Content Include="Views\HoaDon\_ChiTietXuat.cshtml" />
+    <Content Include="Views\NhanVien\_ListNhanVien.cshtml" />
+    <Content Include="Views\HoaDon\Index.cshtml" />
+    <Content Include="Views\DonHang\_ListDonHangPartial.cshtml" />
+    <Content Include="Views\DonHang\_ChiTietDonHangPartial.cshtml" />
+    <Content Include="Views\DonHang\Index.cshtml" />
+    <Content Include="Views\KhachHang\Index.cshtml" />
+    <Content Include="Views\KhachHang\_ListKhachHang.cshtml" />
+    <Content Include="Views\NhaPhanPhoi\_ListNhaPhanPhoi.cshtml" />
+    <Content Include="Views\DonHang\_ListChiTietDonHang.cshtml" />
+    <Content Include="Views\SanPham\Index.cshtml" />
+    <Content Include="Views\SanPham\_SanPhamHeading.cshtml" />
+    <Content Include="Views\SanPham\_ListSanPham.cshtml" />
+    <Content Include="Views\SanPham\_NhapHang.cshtml" />
+    <Content Include="Views\SanPham\_ListNhapHang.cshtml" />
+    <Content Include="Views\ChatBox\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminError.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52835</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44352/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

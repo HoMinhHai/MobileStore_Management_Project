@@ -1,0 +1,361 @@
+﻿@using DAMH_MuaBanVaSuaChuaDienThoai.Models
+@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.CT_HDNhap>
+
+@{
+    HoaDonNhap hoaDon = ViewBag.HoaDon;
+}
+
+<style>
+    .detail__list {
+        padding: 0 20px;
+    }
+
+    .p-r-12 {
+        margin: 20px 0;
+    }
+
+    .form__group button, .refresh-btn {
+        border: none;
+        outline: none;
+        margin: 0 6px;
+        width: auto;
+        border-radius: 10px;
+        padding: 10px 20px;
+        color: #333;
+        background: #ccc;
+        text-align: center;
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+
+    .heading {
+        position: fixed;
+        left: 20%;
+        right: 0;
+        top: 0;
+        z-index: 9999;
+    }
+
+    #admin__form {
+        top: 60px;
+        background: #fff;
+        z-index: 9999;
+    }
+
+    .data-view{
+        margin-top: 339px;
+    }
+
+    .table-heading {
+        top: 339px;
+    }
+
+    .form__group .title {
+        font-weight: 500;
+        padding-left: 12px;
+        font-size: 1.4rem;
+        flex-basis: 120px;
+    }
+</style>
+
+<form action="/" method="get" id="admin__form">
+    <div class="row">
+        <div class="h-4">
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Mã phiếu nhập: </p>
+                        <input type="text" name="pMaPN" readonly value="@hoaDon.PN_MA" id="fullname" class="form__control" />
+                    </div>
+
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Ngày nhập: </p>
+                        <input type="datetime" name="PN_NGAY" value="@DateTime.Now.ToShortDateString()" disabled id="fullname" class="form__control" placeholder="">
+                    </div>
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Sản phẩm:</p>
+                        <select name="pMaSP" rule="required" id="NPP_MA" class="form__control">
+                            @{
+                                foreach (SANPHAM item in ViewBag.listSanPham)
+                                {
+                                    if (item.DUNGLUONG != null)
+                                    {
+                                        <option value="@item.MASP">@item.MASP - @item.DUNGLUONG - @item.TENSP</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.MASP">@item.MASP - @item.TENSP</option>
+                                    }
+
+                                }
+                            }
+                        </select>
+                    </div>
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-4">
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Nhà phân phối:</p>
+                        <select name="pMaNPP" rule="required" id="NPP_MA" class="form__control">
+                            @{
+                                foreach (NHAPHANPHOI item in ViewBag.listNhaPhanPhoi)
+                                {
+                                    <option value="@item.NPP_MA">@item.NPP_MA - @item.NPP_TEN</option>
+
+                                }
+                            }
+                        </select>
+                    </div>
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Tổng tiền: </p>
+                        <input type="datetime" name="TongTien" value="@hoaDon.PN_TONGTIEN" disabled id="fullname" class="form__control" />
+                    </div>
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Số lượng: </p>
+                        <input type="number" name="SoLuong" value="1" min="1" id="fullname" class="form__control" />
+                    </div>
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="h-4">
+            <div class="p-b-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Nhân viên:</p>
+
+                        <select name="pNV" rule="required" id="NV_ID" class="form__control">
+                            @{
+                                foreach (NHANVIEN item in ViewBag.listNhanVien)
+                                {
+                                    <option value="@item.NV_ID">@item.NV_ID. @item.NV_TEN </option>
+
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+
+            <div class="p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center jus-end h-100">
+                        <button class="add-btn">Thêm</button>
+                        <button class="update-btn">Sửa</button>
+                        <button class="update2-btn">Nhập</button>
+                        <button class="remove-btn">Xóa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-t-16 p-l-12 p-r-12">
+                <div class="form__group relative form__item">
+                    <div class="row ali-center">
+                        <p class="title">Giá nhập: </p>
+                        <input type="number" name="GiaNhap" value="1000000" min="1" id="fullname" class="form__control" />
+                    </div>
+                    <span class="form__warning"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@Html.Partial("_ListNhapHang", Model)
+
+
+<script>
+    var firstRow = $(".row-item").first();
+    var refreshBtn = $(".refresh-btn");
+    var addBtn = $(".add-btn");
+    var removeBtn = $(".remove-btn");
+    var updateBtn = $(".update-btn");
+    var update2Btn = $(".update2-btn");
+    var form = new Validate("#admin__form");
+    var closeBtn = $(".success-container button");
+    var closeBtn2 = $(".error-container button");
+    var table = $(".data-view");
+
+    // Thêm sản phẩm vào đơn hàng
+    addBtn.click(e => {
+        form.onSubmit = function (value) {
+
+            if (Object.keys(value).length === $("select").length) {
+                $.ajax({
+                    url: "/SanPham/AddNewProductOrder",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view-list").html(result);
+                        ClearForm();
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 2500);
+                    },
+                    error: function (result) {
+                        console.log("clm")
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 2500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Cập nhập thông tin đơn đặt hàng
+    updateBtn.click(e => {
+        form.onSubmit = function (value) {
+            var formData = value;
+
+            if (Object.keys(value).length === $("select").length) {
+                $.ajax({
+                    url: "/SanPham/UpdateOrder",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view-list").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 2500);
+                    },
+                    error: function (result) {
+
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 2500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Xác nhận nhập hàng
+    update2Btn.click(e => {
+        form.onSubmit = function (value) {
+            var formData = value;
+
+            if (Object.keys(value).length === $("select").length) {
+                $.ajax({
+                    url: "/SanPham/ComfirmOrder",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view-list").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 1500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 1500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Xóa (Hủy) đơn hàng
+    removeBtn.click(e => {
+        form.onSubmit = function (value) {
+            var activeRow = $(".row-item.active").get(0);
+
+            if (Object.keys(value).length === $("select").length) {
+                $.ajax({
+                    url: "/SanPham/DeleteOrder",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view-list").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 2500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 2500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Tắt thông báo
+    closeBtn.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    closeBtn2.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    // Làm mới form
+    refreshBtn.click(e => {
+        ClearForm();
+    });
+
+    function ClearForm() {
+        var checkeds = $("input[type=radio]").filter(":checked");
+
+        $("input[name=NV_HOTEN]").val("");
+        $("input[name=NV_NGAYSINH]").val("");
+        $("input[name=NV_DIACHI]").val("");
+        $("input[name=NV_SDT]").val("");
+
+        Array.from(checkeds).forEach(checked => {
+            checked.checked = false;
+        });
+
+        RefreshAnimate();
+    }
+</script>

@@ -1,0 +1,126 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.NHANVIEN>
+
+<table class="table">
+    <tr class="table-heading"></tr>
+    <tr class="table-heading relative">
+        <th width="70px">
+            Mã NV
+        </th>
+        <th style="width: 250px">
+            Họ và tên
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Giới tính
+        </th>
+        <th style="width: 120px">
+            Ngày sinh
+        </th>
+        <th style="width: 120px">
+            Số điện thoại
+        </th>
+        <th style="width: 120px">
+            Trạng thái
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row-item">
+            <td id="@Html.DisplayNameFor(model => model.NV_ID)">
+                <p>@item.NV_ID</p>
+            </td>
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.NV_TEN)">
+                <p>@item.NV_TEN</p>
+            </td>
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.NV_DIACHI)">
+                <p>@item.NV_DIACHI</p>
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.NV_GIOITINH)">
+                @if (@item.NV_GIOITINH == true)
+                {
+                    <p>Nam</p>
+                }
+                else
+                {
+                    <p>Nữ</p>
+                }
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.NV_NGAYSINH)">
+                <p>@item.NV_NGAYSINH.ToString().Substring(0, 10)</p>
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.NV_SDT)">
+                <p>@item.NV_SDT</p>
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.NV_DELETE)">
+                @if (@item.NV_DELETE == true)
+                {
+                    <p>Đã nghỉ</p>
+                }
+                else
+                {
+                    <p>Đang làm</p>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var rows = $(".row-item");
+    var firstRow = $(".row-item").first();
+    firstRow.addClass("active");
+    $(".table-heading").css("top", $("#admin__form").height() + "px")
+
+
+    LoadForm();
+    RefreshAnimate();   
+
+    // Load dữ liệu lên form
+    Array.from(rows).forEach(row => {
+        row.addEventListener("click", e => {
+            var parent = getParentElement(e.target, "tr");
+
+            $(".row-item.active").removeClass("active");
+            parent.classList.add("active");
+
+            ClearValidate();
+            LoadForm();
+            RefreshAnimate();
+        });
+    });
+
+    function LoadForm() {
+        var activeRow = $(".row-item.active").get(0);
+
+        var id = activeRow.cells.namedItem("NV_ID").innerText;
+        var name = activeRow.cells.namedItem("NV_TEN").innerText;
+        var dateBirth = activeRow.cells.namedItem("NV_NGAYSINH").innerText;
+        var address = activeRow.cells.namedItem("NV_DIACHI").innerText;
+        var phoneNumber = activeRow.cells.namedItem("NV_SDT").innerText;
+        var gender = activeRow.cells.namedItem("NV_GIOITINH").innerText;
+        var status = activeRow.cells.namedItem("NV_DELETE").innerText;
+
+        $("input[name=NV_HOTEN]").val(name);
+        $("input[name=NV_NGAYSINH]").val(dateBirth);
+        $("input[name=NV_DIACHI]").val(address);
+        $("input[name=NV_SDT]").val(phoneNumber);
+        $("input[name=NV_ID]").val(id);
+
+        if (gender === "Nam") {
+            $("input#male").prop("checked", true);
+        }
+        else {
+            $("input#female").prop("checked", true);
+        }
+
+        if (status === "Đang làm") {
+            $("input#stillWork").prop("checked", true);
+        }
+        else {
+            $("input#fired").prop("checked", true);
+        }
+    }
+</script>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.KHACHHANG>
+
+<table class="table">
+    <tr class="table-heading"></tr>
+    <tr class="table-heading relative">
+        <th style="width: 250px">
+            Họ và tên
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Giới tính
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row-item">
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.KH_TEN)">
+                <p>@item.KH_TEN</p>
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.KH_SDT)">
+                <p>@item.KH_SDT</p>
+            </td>
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.KH_DIACHI)">
+                <p>@item.KH_DIACHI</p>
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.KH_GIOITINH)">
+                @if (@item.KH_GIOITINH == true)
+                {
+                    <p>Nam</p>
+                }
+                else
+                {
+                    <p>Nữ</p>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var rows = $(".row-item");
+    var firstRow = $(".row-item").first();
+    firstRow.addClass("active");
+    $(".table-heading").css("top", $("#admin__form").height() + "px")
+
+    LoadForm();
+    RefreshAnimate();
+
+    // Load dữ liệu lên form
+    Array.from(rows).forEach(row => {
+        row.addEventListener("click", e => {
+            var parent = getParentElement(e.target, "tr");
+
+            $(".row-item.active").removeClass("active");
+            parent.classList.add("active");
+
+            ClearValidate();
+            LoadForm();
+            RefreshAnimate();
+        });
+    });
+
+    function LoadForm() {
+        var activeRow = $(".row-item.active").get(0);
+
+        var name = activeRow.cells.namedItem("KH_TEN").innerText;
+        var phoneNumber = activeRow.cells.namedItem("KH_SDT").innerText;
+        var address = activeRow.cells.namedItem("KH_DIACHI").innerText;
+        var gender = activeRow.cells.namedItem("KH_GIOITINH").innerText;
+
+        $("input[name=KH_TEN]").val(name);
+        $("input[name=KH_SDT]").val(phoneNumber);
+        $("input[name=KH_DIACHI]").val(address);
+
+        if (gender === "Nam") {
+            $("input#male").prop("checked", true);
+        }
+        else {
+            $("input#female").prop("checked", true);
+        }
+    }
+</script>

@@ -1,0 +1,209 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.NHAPHANPHOI>
+
+<style>
+    .heading {
+        padding: 0 12px;
+        margin-bottom: 16px;
+    }
+</style>
+
+
+<div>
+    <form action="/" method="get" id="admin__form">
+        <div class="heading">
+            <div class="row ali-center jus-between h-100">
+                <p class="title">Thông tin nhà phân phối</p>
+            </div>
+        </div>
+        <input type="text" name="NV_ID" value="" hidden />
+        <div class="row p-b-24">
+            <div class="h-6">
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="NPP_MA">Mã nhà phân phối</label>
+                        <input type="text" name="NPP_MA" rule="required" id="NPP_MA" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="NPP_TEN">Tên nhà phân phối</label>
+                        <input type="text" name="NPP_TEN" rule="required" id="NPP_TEN" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6">
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="NPP_SDT">Số điện thoại </label>
+                        <input type="text" name="NPP_SDT" rule="required|phoneNumber" id="NPP_SDT" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="NPP_DIACHI">Địa chỉ</label>
+                        <input type="text" name="NPP_DIACHI" rule="required" id="NPP_DIACHI" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+                <div class="p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <div class="row ali-center jus-end h-100">
+                            <p class="refresh-btn">Làm mới</p>
+                            <button class="add-btn">Thêm</button>
+                            <button class="update-btn">Sửa</button>
+                            <button class="remove-btn">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="data-view">
+        @Html.Partial("_listNhaPhanPhoi", Model)
+    </div>
+
+
+    <div class="success-container">
+        <p>Cập nhập nhân viên thành công!</p>
+        <button>OK</button>
+    </div>
+
+    <div class="error-container">
+        <p>Cập nhập nhân viên thất bại</p>
+        <button>OK</button>
+    </div>
+</div>
+
+<script>
+    var firstRow = $(".row-item").first();
+    var refreshBtn = $(".refresh-btn");
+    var addBtn = $(".add-btn");
+    var removeBtn = $(".remove-btn");
+    var updateBtn = $(".update-btn");
+    var form = new Validate("#admin__form");
+    var closeBtn = $(".success-container button");
+    var closeBtn2 = $(".error-container button");
+    var table = $(".data-view");
+    table.css("margin-top", $("#admin__form").height() + "px");
+
+    $("#admin__form").submit(e => {
+        table.css("margin-top", $("#admin__form").height() + "px");
+    });
+
+    addBtn.click(e => {
+        form.onSubmit = function (value) {
+            var formData = value;
+
+            if (Object.keys(formData).length === Array.from($(".form__group")).length - 1) {
+                $.ajax({
+                    url: "/NhaPhanPhoi/Add",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view").html(result);
+                        ClearForm();
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 2500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 2500);
+                    }
+                });
+            }
+        }
+    });
+
+    updateBtn.click(e => {
+        form.onSubmit = function (value) {
+            var formData = value;
+
+            if (Object.keys(formData).length === Array.from($(".form__group")).length - 1) {
+                $.ajax({
+                    url: "/NhaPhanPhoi/Update",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 2500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 2500);
+                    }
+                });
+            }
+        }
+    });
+
+    removeBtn.click(e => {
+        form.onSubmit = function (value) {
+            var activeRow = $(".row-item.active").get(0);
+
+            if (activeRow.cells.namedItem("NPP_MA").innerText) {
+                $.ajax({
+                    url: "/NhaPhanPhoi/Remove",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 2500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 2500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Tắt thông báo
+    closeBtn.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    closeBtn2.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    // Làm mới form
+    refreshBtn.click(e => {
+        ClearForm();
+    });
+
+    function ClearForm() {
+        $("input[name=NPP_TEN]").val("");
+        $("input[name=NPP_MA]").val("");
+        $("input[name=NPP_DIACHI]").val("");
+        $("input[name=NPP_SDT]").val("");
+
+        RefreshAnimate();
+    }
+</script>

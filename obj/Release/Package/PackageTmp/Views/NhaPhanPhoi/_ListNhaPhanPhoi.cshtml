@@ -1,0 +1,76 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.NHAPHANPHOI>
+
+<table class="table">
+    <tr class="table-heading"></tr>
+    <tr class="table-heading relative">
+        <th width="70px">
+            Mã nhà phân phối
+        </th>
+        <th style="width: 250px">
+            Tên nhà phân phối
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Đại chỉ
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row-item">
+            <td id="@Html.DisplayNameFor(model => model.NPP_MA)">
+                <p>@item.NPP_MA</p>
+            </td>
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.NPP_TEN)">
+                <p>@item.NPP_TEN</p>
+            </td>
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.NPP_SDT)">
+                <p>@item.NPP_SDT</p>
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.NPP_DIACHI)">
+                <p>@item.NPP_DIACHI</p>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var rows = $(".row-item");
+    var firstRow = $(".row-item").first();
+    firstRow.addClass("active");
+    $(".table-heading").css("top", $("#admin__form").height() + "px")
+
+
+    LoadForm();
+    RefreshAnimate();
+
+    // Load dữ liệu lên form
+    Array.from(rows).forEach(row => {
+        row.addEventListener("click", e => {
+            var parent = getParentElement(e.target, "tr");
+
+            $(".row-item.active").removeClass("active");
+            parent.classList.add("active");
+
+            ClearValidate();
+            LoadForm();
+            RefreshAnimate();
+        });
+    });
+
+    function LoadForm() {
+        var activeRow = $(".row-item.active").get(0);
+
+        var id = activeRow.cells.namedItem("NPP_MA").innerText;
+        var name = activeRow.cells.namedItem("NPP_TEN").innerText;
+        var phoneNumber = activeRow.cells.namedItem("NPP_SDT").innerText;
+        var address = activeRow.cells.namedItem("NPP_DIACHI").innerText;
+
+        $("input[name=NPP_TEN]").val(name);
+        $("input[name=NPP_DIACHI]").val(address);
+        $("input[name=NPP_SDT]").val(phoneNumber);
+        $("input[name=NPP_MA]").val(id);
+    }
+</script>

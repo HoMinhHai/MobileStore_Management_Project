@@ -1,0 +1,124 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.CT_DonHang>
+
+<table class="table">
+    <tr>
+        <th>
+            Mã sản phẩm
+        </th>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Ảnh
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Giá
+        </th>
+        <th>
+            Chức năng
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row-item">
+            <td id="@Html.DisplayNameFor(model => model.MASP)">
+                @item.MASP
+            </td>
+            <td>
+                @item.TENSP @item.DUNGLUONG
+            </td>
+            <td>
+                <img src="~/Assets/Image/Product/@item.ANHSP" width="100" />
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.SOLUONGXUAT)">
+                @item.SOLUONGXUAT
+            </td>
+            <td>
+                @item.GIA
+            </td>
+            <td>
+                <p class="remove" data-link="/DonHang/RemoveDetail/@item.MASP?pMaPX=@Session["MPX"]">Xóa</p>
+                <p class="error-btn" data-link="/Admin/Error">Chi tiết</p>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var rows = $(".row-item");
+    var firstRow = $(".row-item").first();
+    var removes = $(".remove");
+    firstRow.addClass("active");
+
+    LoadForm();
+
+    var errorBtns = $(".error-btn");
+
+    Array.from(errorBtns).forEach(errorBtn => {
+        errorBtn.addEventListener("click", e => {
+            $.ajax({
+                url: errorBtn.dataset.link,
+                success: function (result) {
+                    $("#content").html(result);
+                }
+            });
+        });
+    });
+
+    // Xóa chi tiết đơn hàng
+    Array.from(removes).forEach(remove => {
+        remove.addEventListener("click", e => {
+            $.ajax({
+                url: remove.dataset.link,
+                success: function (result) {
+                    $(".list-detail-order").html(result);
+
+                    $(".success-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".success-container.active").removeClass("active");
+                    }, 2500);
+                }
+            });
+        });
+    });
+
+    // Load dữ liệu lên form
+    Array.from(rows).forEach(row => {
+        row.addEventListener("click", e => {
+            var parent = getParentElement(e.target, "tr");
+
+            $(".row-item.active").removeClass("active");
+            parent.classList.add("active");
+
+            LoadForm();
+        });
+    });
+
+    $("select[name=MASP_CU]").on("change", e => {
+        var rows = $("table").get(0).rows;
+
+        Array.from(rows).forEach(row => {
+
+            if (row.cells.namedItem("MASP") &&
+                row.cells.namedItem("MASP").innerText === e.target.value
+            ) {
+                $("input[name=SOLUONGXUAT_CU]").val(row.cells["SOLUONGXUAT"].innerText);
+            }
+        })
+    });
+
+    function LoadForm() {
+        var activeRow = $(".row-item.active").get(0);
+
+        var id = activeRow.cells.namedItem("MASP").innerText;
+        var quantity = activeRow.cells.namedItem("SOLUONGXUAT").innerText;
+
+        $("select[name=MASP_CU]").val(id);
+        $("input[name=SOLUONGXUAT_CU]").val(quantity);
+    }
+</script>

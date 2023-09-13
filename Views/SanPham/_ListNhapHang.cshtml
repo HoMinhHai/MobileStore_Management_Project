@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.CT_HDNhap>
+
+
+<div class="data-view">
+    <table class="table">
+        <tr class="table-heading"></tr>
+        <tr class="table-heading relative">
+            <th>
+                Mã sản phẩm
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Chi tiết
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.MASP
+                </td>
+                <td>
+                    @item.TENSP @item.DUNGLUONG
+                </td>
+                <td>
+                    <img src="~/Assets/Image/Product/@item.ANHSP" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SOLUONGXUAT)
+                </td>
+                <td>
+                    @item.GIA
+                </td>
+                <td>
+                    <p class="update-btn" data-link="/Admin/Error">Chi tiết</p>
+                    <p class="update-btn" data-link="/Admin/Error">Xóa</p>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <script>
+        var updateBtns = $(".update-btn");
+
+        Array.from(updateBtns).forEach(updateBtn => {
+            updateBtn.addEventListener("click", e => {
+                $.ajax({
+                    url: updateBtn.dataset.link,
+                    success: function (result) {
+                        $("#content").html(result);
+                    }
+                })
+            })
+        });
+
+    </script>
+</div>

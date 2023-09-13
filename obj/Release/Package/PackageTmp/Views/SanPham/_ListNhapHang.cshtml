@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.CT_HDNhap>
+
+
+<div class="data-view">
+    <table class="table">
+        <tr class="table-heading"></tr>
+        <tr class="table-heading relative">
+            <th>
+                Mã sản phẩm
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Chi tiết
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.MASP
+                </td>
+                <td>
+                    @item.TENSP @item.DUNGLUONG
+                </td>
+                <td>
+                    <img src="~/Assets/Image/Product/@item.ANHSP" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SOLUONGXUAT)
+                </td>
+                <td>
+                    @item.GIA
+                </td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "Details", new { MaSP = item.MASP })
+                    @Html.ActionLink("Xóa", "Details", new { MaSP = item.MASP })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

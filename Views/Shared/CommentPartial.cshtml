@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.QuanLyDienThoai>
+@{
+    foreach (var comment in Model)
+    {
+        <div class="comment__item relative">
+            <div class="content__body row user-role">
+                <div class="p-t-8 user__imgae relative">
+                    <img src="~/Assets/Image/Layout/user.jpg" />
+                </div>
+
+                <div class="content user">
+                    <div class="row ali-center">
+                        <p class="user__name">@comment.KH_TENKH</p>
+                        <p class="comment__time">@comment.BL_THOIGIAN</p>
+                    </div>
+
+                    <p class="user__content">@comment.BL_NOIDUNG</p>
+                </div>
+            </div>
+
+            <div class="relationship"></div>
+
+            @{
+                foreach (var support in comment.BL_BINHLUANS1)
+                {
+                    <div class="content__body row admin-role relative">
+                        <div class="p-t-8 admin__image relative">
+                            <img src="~/Assets/Image/Layout/user.jpg" />
+                        </div>
+
+                        <div class="content" support>
+                            <div class="row ali-center">
+                                <p class="user__name">Admin</p>
+                                <p class="comment__time">@comment.BL_THOIGIAN</p>
+                            </div>
+                            <p class="user__content">@support.NoiDung</p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    }
+}
+
+

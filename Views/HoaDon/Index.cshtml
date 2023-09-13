@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Partial("_HoaDonHeading")
+
+<div class="data-view">
+
+</div>
+
+<script>
+    var navItems = $(".heading .title");
+    var table = $(".data-view");
+
+
+    table.css("margin-top", $(".heading").height() + "px");
+
+    RenderTable();
+
+    Array.from(navItems).forEach(navItem => {
+        navItem.addEventListener("click", e => {
+            $(".heading .title.active").removeClass("active");
+            navItem.classList.add("active");
+
+            RenderTable();
+        });
+    });
+
+    function RenderTable() {
+        var activeNav = $(".heading .title.active");
+
+        $.ajax({
+            url: activeNav.data("link"),
+            success: function (result) {
+                table.html(result);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,135 @@
+﻿<!--
+VIEW IN FULL SCREEN MODE
+FULL SCREEN MODE: http://salehriaz.com/404Page/404.html
+
+DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
+-->
+
+<link type="image/png" rel="icon" href="~/Assets/Image/Layout/Error/error.png">
+<title>Trang đang trong quá trình phát triển</title>
+<link href="~/Assets/Css/error.css" rel="stylesheet" />
+<style>
+    body {
+        overflow: hidden !important;
+    }
+
+    #header {
+        display: none !important;
+    }
+
+    center {
+        display: none !important;
+    }
+
+    div:not([class]):not([id]) {
+        display: none !important;
+    }
+
+    .nav__item {
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: all 0.3s linear;
+        color: #fff;
+    }
+
+    .nav__item:hover{
+        color: yellow;
+    }
+
+    .header {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        right: 0;
+        padding: 0 160px;
+        background: transparent
+    }
+
+    .central-body {
+        padding: 0;
+        height: 100vh;
+    }
+
+        .central-body h1 {
+            font-size: 15rem;
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .central-body h2 {
+            color: #fff;
+            font-size: 5rem;
+        }
+
+    .bg-purple {
+        background-image: url('../../assets/image/layout/error/bg_purple.png') !important;
+    }
+
+    .stars {
+        background-image: url('../../assets/image/layout/error/overlay_stars.svg') !important;
+    }
+
+    #content{
+        padding: 0 !important;
+    }
+
+    #footer{
+        display: none;
+    }
+</style>
+
+<div class="bg-purple">
+    <div class="stars">
+        <div class="custom-navbar header">
+            <div class="row ali-center jus-between">
+                <div class="brand-logo">
+                    <img src="~/Assets/Image/Store/136 store.svg" style="width: 160px" />
+                </div>
+                <div class="navbar-links">
+                    <ul>
+                        <li><p class="nav__item" data-link="/Store/Home">Trang chủ</p></li>
+                        <li><p class="nav__item" data-link="/Store/Phone">iPhone</p></li>
+                        <li><p class="nav__item" data-link="/Store/Accessory">Phụ kiện</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="central-body row ali-center jus-center flex-column">
+            <h1>404</h1>
+            <h2>Trang đang trong quá trình <br /> phát triển</h2>
+        </div>
+        <div class="objects">
+            <img class="object_rocket" src="~/Assets/Image/Layout/Error/rocket.svg" width="40px">
+            <div class="earth-moon">
+                <img class="object_earth" src="~/Assets/Image/Layout/Error/earth.svg" width="100px">
+                <img class="object_moon" src="~/Assets/Image/Layout/Error/moon.svg" width="80px">
+            </div>
+            <div class="box_astronaut">
+                <img class="object_astronaut" src="~/Assets/Image/Layout/Error/astronaut.svg" width="140px">
+            </div>
+        </div>
+        <div class="glowing_stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+    </div>
+
+    <script>
+        var navItems = $(".nav__item");
+
+        Array.from(navItems).forEach(navItem => {
+            navItem.addEventListener("click", e => {
+                $.ajax({
+                    url: navItem.dataset.link,
+                    success: function (result) {
+                        $("#content").html(result);
+                        $("#content").css("padding-top", $("#header").height() + "px");
+                    }
+                });
+            });
+        })
+    </script>
+</div>

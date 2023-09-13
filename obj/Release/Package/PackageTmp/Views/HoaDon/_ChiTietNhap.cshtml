@@ -1,0 +1,119 @@
+﻿@using DAMH_MuaBanVaSuaChuaDienThoai.Models
+@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.CT_HDNhap>
+
+@{
+    HoaDonNhap hoaDon = ViewBag.HoaDon;
+}
+
+<style>  
+
+    .detail__list{
+        padding: 0 20px;
+    }
+</style>
+
+<form action="/" method="post" id="admin__form">
+    <div class="heading">
+        <div class="row ali-center h-100">
+            <div>
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <p class="title">Chi tiết đơn nhập</p>
+        </div>
+    </div>
+    <div class="row detail__list p-b-12">
+        <div class="h-4 detail__container">
+            <div class="row ali-center detail__item">
+                <p class="title">Mã phiếu nhập</p>
+                <p class="info">@hoaDon.PN_MA</p>
+            </div>
+
+            <div class="row ali-center detail__item">
+                <p class="title">Mã nhân viên</p>
+                <p class="info">@hoaDon.NV_ID</p>
+            </div>
+
+            <div class="row ali-center detail__item">
+                <p class="title">Tổng tiền</p>
+                <p class="info">@hoaDon.PN_TONGTIEN</p>
+            </div>
+        </div>
+
+        <div class="h-4">
+            <div class="row ali-center detail__item">
+                <p class="title">Mã nhà phân phối</p>
+                <p class="info">@hoaDon.NPP_MA</p>
+            </div>
+
+            <div class="row ali-center detail__item">
+                <p class="title">Ngày nhập</p>
+                <p class="info">@hoaDon.PN_NGAYNHAP</p>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="data-view">
+    <table class="table">
+        <tr>
+            <th>
+                Mã sản phẩm
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Chi tiết
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.MASP
+                </td>
+                <td>
+                    @item.TENSP @item.DUNGLUONG
+                </td>
+                <td>
+                    <img src="~/Assets/Image/Product/@item.ANHSP" width="100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SOLUONGXUAT)
+                </td>
+                <td>
+                    @item.GIA
+                </td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "Details", new { MaSP = item.MASP })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script>
+    var table = $(".data-view");
+
+    table.css("margin-top", $("#admin__form").height() + "px");
+
+    $(".heading i").click(e => {
+        $.ajax({
+            url: "HoaDon/Index",
+            success: function (result) {
+                $("#content").html(result);
+            }
+        });
+    });
+</script>

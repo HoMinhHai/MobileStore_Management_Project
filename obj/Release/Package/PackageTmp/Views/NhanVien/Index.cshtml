@@ -1,0 +1,267 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.NHANVIEN>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .heading {
+        padding: 0 12px;
+        margin-bottom: 16px;
+    }
+</style>
+
+<div>
+    <form action="/" method="get" id="admin__form">
+        <div class="heading">
+            <div class="row ali-center jus-between h-100">
+                <p class="title">Thông tin nhân viên</p>
+            </div>
+        </div>
+        <input type="text" name="NV_ID" value="" hidden />
+        <div class="row p-b-24">
+            <div class="h-6">
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="fullname">Họ và tên</label>
+                        <input type="text" name="NV_HOTEN" rule="required|fullname" id="fullname" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" name="NV_DIACHI" rule="required" id="address" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group">
+                        <div class="row ali-center h-100">
+                            <p class="title">Giới tính:</p>
+                            <div class="h-3">
+                                <label class="gender__label relative">
+                                    Nam
+                                    <input type="radio" name="NV_GIOITINH" id="male" rule="required" value="True" class="form__control">
+                                    <div class="checkbox"></div>
+                                </label>
+                            </div>
+                            <div class="h-3">
+                                <label class="gender__label relative">
+                                    Nữ
+                                    <input type="radio" name="NV_GIOITINH" id="female" rule="required" value="False" class="form__control">
+                                    <div class="checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <span class="form__warning ma-t-8"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-6">
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="dateBirth">Ngày sinh</label>
+                        <input type="text" name="NV_NGAYSINH" rule="required" id="dateBirth" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <label for="phoneNumber">Số điện thoại:</label>
+                        <input type="text" name="NV_SDT" rule="required|phoneNumber" id="phoneNumber" class="form__control" placeholder="">
+                        <span class="form__warning"></span>
+                    </div>
+                </div>
+                <div class="p-b-16 p-l-12 p-r-12">
+                    <div class="form__group">
+                        <div class="row ali-center h-100">
+                            <p class="title">Tình trạng:</p>
+                            <div class="h-3">
+                                <label class="gender__label relative">
+                                    Đang làm
+                                    <input type="radio" name="NV_TINHTRANG" id="stillWork" rule="required" value="False" class="form__control">
+                                    <div class="checkbox"></div>
+                                </label>
+                            </div>
+                            <div class="h-3">
+                                <label class="gender__label relative">
+                                    Đã nghỉ
+                                    <input type="radio" name="NV_TINHTRANG" id="fired" rule="required" value="True" class="form__control">
+                                    <div class="checkbox"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <span class="form__warning ma-t-8"></span>
+                    </div>
+                </div>
+                <div class="p-l-12 p-r-12">
+                    <div class="form__group relative form__item">
+                        <div class="row ali-center jus-end h-100">
+                            <p class="refresh-btn">Làm mới</p>
+                            <button class="add-btn">Thêm</button>
+                            <button class="update-btn">Sửa</button>
+                            <button class="remove-btn">Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="data-view">
+        @Html.Partial("_ListNhanVien", Model)
+    </div>
+
+
+    <div class="success-container">
+        <p>Cập nhập nhân viên thành công!</p>
+        <button>OK</button>
+    </div>
+
+    <div class="error-container">
+        <p>Cập nhập nhân viên thất bại</p>
+        <button>OK</button>
+    </div>
+</div>
+
+<script>
+    var firstRow = $(".row-item").first();
+    var refreshBtn = $(".refresh-btn");
+    var addBtn = $(".add-btn");
+    var removeBtn = $(".remove-btn");
+    var updateBtn = $(".update-btn");
+    var form = new Validate("#admin__form");
+    var closeBtn = $(".success-container button");
+    var closeBtn2 = $(".error-container button");
+    var table = $(".data-view");
+    table.css("margin-top", $("#admin__form").height() + "px");
+
+    $("#admin__form").submit(e => {
+        table.css("margin-top", $("#admin__form").height() + "px");
+    });
+
+    // Thêm nhân viên
+    addBtn.click(e => {
+        form.onSubmit = function (value) {
+            var formData = value;
+
+            if (Object.keys(formData).length === Array.from($(".form__group")).length - 1) {
+                $.ajax({
+                    url: "/NhanVien/Add",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view").html(result);
+                        ClearForm();
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 1500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 1500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Cập nhập nhân viên
+    updateBtn.click(e => {
+        form.onSubmit = function (value) {
+            var formData = value;
+
+            if (Object.keys(formData).length === Array.from($(".form__group")).length - 1) {
+                $.ajax({
+                    url: "/NhanVien/Update",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 1500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 1500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Xóa nhân viên
+    removeBtn.click(e => {
+        form.onSubmit = function (value) {
+            var activeRow = $(".row-item.active").get(0);
+
+            if (activeRow.cells.namedItem("NV_ID").innerText) {
+                $.ajax({
+                    url: "/NhanVien/Remove",
+                    type: "get",
+                    data: $("#admin__form").serialize(),
+                    success: function (result) {
+                        $(".data-view").html(result);
+                        $(".success-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".success-container.active").removeClass("active");
+                        }, 1500);
+                    },
+                    error: function (result) {
+                        $(".error-container").addClass("active");
+
+                        setTimeout(() => {
+                            $(".error-container.active").removeClass("active");
+                        }, 1500);
+                    }
+                });
+            }
+        }
+    });
+
+    // Tắt thông báo
+    closeBtn.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    closeBtn2.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    // Làm mới form
+    refreshBtn.click(e => {
+        ClearForm();
+    });
+
+    function ClearForm() {
+        var checkeds = $("input[type=radio]").filter(":checked");
+
+        $("input[name=NV_HOTEN]").val("");
+        $("input[name=NV_NGAYSINH]").val("");
+        $("input[name=NV_DIACHI]").val("");
+        $("input[name=NV_SDT]").val("");
+
+        Array.from(checkeds).forEach(checked => {
+            checked.checked = false;
+        });
+
+        RefreshAnimate();
+    }
+</script>

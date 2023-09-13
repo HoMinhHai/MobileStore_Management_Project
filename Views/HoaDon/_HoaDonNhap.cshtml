@@ -1,0 +1,77 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.HoaDonNhap>
+
+<style>
+    td .detail{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    td .detail:hover{
+        opacity: 0.7;
+    }
+</style>
+
+
+<table class="table">
+    <tr class="table-heading"></tr>
+    <tr class="table-heading relative">
+        <th>
+            Mã phiếu nhập
+        </th>
+        <th>
+            Nhà phân phối
+        </th>
+        <th>
+            Nhân viên nhập
+        </th>
+        <th>
+            Ngày nhập
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+        <th>
+            Chi tiết
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row-item">
+            <td>
+                @Html.DisplayFor(modelItem => item.PN_MA)
+            </td>
+            <td style="text-align: left">
+                @Html.DisplayFor(modelItem => item.NPP_TEN)
+            </td>
+            <td style="text-align: left">
+                @item.NV_ID. @item.NV_TEN
+            </td>
+            <td>
+                @item.PN_NGAYNHAP.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PN_TONGTIEN)
+            </td>
+            <td>
+                <p class="detail" data-link="/HoaDon/ChiTietNhap/@item.PN_MA">Chi tiết</p>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var details = $(".detail");
+    $(".table-heading").css("top", $("#admin__form").height() + "px")
+
+    Array.from(details).forEach(detail => {
+        detail.addEventListener("click", e => {
+            $.ajax({
+                url: detail.dataset.link,
+                success: function (result) {
+                    $("#content").html(result);
+                }
+            });
+        });
+    });
+</script>

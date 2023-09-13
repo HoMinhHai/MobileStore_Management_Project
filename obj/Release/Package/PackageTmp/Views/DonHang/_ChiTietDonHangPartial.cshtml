@@ -1,0 +1,352 @@
+﻿@using DAMH_MuaBanVaSuaChuaDienThoai.Models
+@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.CT_DonHang>
+
+@{
+    var hoaDon = @ViewBag.HoaDon as DAMH_MuaBanVaSuaChuaDienThoai.Models.DonHang;
+}
+
+<style>
+    .detail__list {
+        padding: 0 20px;
+    }
+
+    .form__group button, .refresh-btn {
+        margin: 0;
+    }
+
+    .heading {
+        margin-bottom: 16px;
+    }
+
+    .collapsed-btn {
+        position: absolute;
+        right: 14px;
+        bottom: -51px;
+    }
+
+    .collapsed-btn::after {
+        position: absolute;
+        content: "";
+        height: 17px;
+        width: 2px;
+        border-radius: 10px;
+        left: 50%;
+        background: #3b3a3a;
+        transform: translateX(-50%);
+        top: -16px;
+    }
+
+    #admin__form .collapsed-btn i {
+        height: 35px;
+        width: 35px;
+        line-height: 35px;
+        background: #3b3a3a;
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    #admin__form .collapsed-btn i:hover {
+        transform: scale(1.1);
+    }
+
+    #admin__form .collapsed-btn i:active {
+        transform: scale(1);
+    }
+
+    #admin__form .update-form {
+        transition: all 0.7s linear;
+        height: 216px;
+        padding-bottom: 0;
+        overflow: hidden;
+    }
+
+    #admin__form.collapsed .update-form {
+        height: 0;
+    }
+
+    #admin__form .fa-arrow-down {
+        display: none;
+    }
+
+    #admin__form .fa-arrow-up {
+        display: block;
+    }
+
+    #admin__form.collapsed .fa-arrow-up {
+        display: none;
+    }
+
+    #admin__form.collapsed .fa-arrow-down {
+        display: block;
+    }
+
+    #admin__form.collapsed .heading {
+        margin: 0;
+    }
+
+    .heading{
+        position: fixed;
+        top: 0;
+        left: 20%;
+        right: 0;
+        z-index: 100;
+    }
+
+    #admin__form{
+        position: initial;
+    }
+</style>
+
+<div>
+    <div class="heading">
+        <div class="row ali-center h-100">
+            <div>
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <p class="title">Chi tiết đơn hàng</p>
+        </div>
+    </div>
+
+    <div class="data-view">
+        <form action="/" method="get" id="admin__form" class="collapsed">
+            <input type="text" name="MAPX" value="@hoaDon.PX_MA" hidden />
+            
+            <div class="relative">
+                <div class="row update-form">
+
+                    <div class="h-6 p-t-16">
+                        <div class="p-b-16 p-l-12 p-r-12">
+                            <div class="form__group relative form__item">
+                                <div class="row ali-center">
+                                    <p class="title">Sản phẩm:</p>
+                                    <select name="MASP_MOI">
+                                        @{
+                                            foreach (SANPHAM item in ViewBag.ListSanPham)
+                                            {
+                                                <option value="@item.MASP">@item.TENSP - @item.DUNGLUONG</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <span class="form__warning"></span>
+                            </div>
+                        </div>
+                        <div class="p-b-16 p-l-12 p-r-12">
+                            <div class="form__group relative form__item">
+                                <div class="row ali-center">
+                                    <p class="title">Số lượng:</p>
+                                    <input type="number" name="SOLUONGXUAT_MOI" min="1" value="1" />
+                                </div>
+                                <span class="form__warning"></span>
+                            </div>
+                        </div>
+                        <div class="p-l-12 p-r-12">
+                            <div class="form__group relative form__item">
+                                <div class="row ali-center jus-end h-100">
+                                    <button class="add-btn">Thêm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-6 p-t-16">
+                        <div class="p-b-16 p-l-12 p-r-12">
+                            <div class="form__group relative form__item">
+                                <div class="row ali-center">
+                                    <p class="title">Sản phẩm:</p>
+                                    <select name="MASP_CU">
+                                        @{
+                                            foreach (CT_DonHang item in Model)
+                                            {
+                                                <option value="@item.MASP">@item.TENSP - @item.DUNGLUONG</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <span class="form__warning"></span>
+                            </div>
+                        </div>
+                        <div class="p-b-16 p-l-12 p-r-12">
+                            <div class="form__group relative form__item">
+                                <div class="row ali-center">
+                                    <p class="title">Số lượng:</p>
+                                    <input type="number" name="SOLUONGXUAT_CU" min="1" value="@(Model.Count() > 0 ? Model.ToList()[0].SOLUONGXUAT : 1)" />
+                                </div>
+                                <span class="form__warning"></span>
+                            </div>
+                        </div>
+                        <div class="p-l-12 p-r-12">
+                            <div class="form__group relative form__item">
+                                <div class="row ali-center jus-end h-100">
+                                    <button class="update-btn">Cập nhập</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapsed-btn">
+                    <i class="fa-solid fa-arrow-down"></i>
+                    <i class="fa-solid fa-arrow-up"></i>
+                </div>
+            </div>
+            
+        </form>
+        <div class="row detail__list p-b-12">
+            <div class="h-4 detail__container">
+                <div class="row ali-center detail__item">
+                    <p class="title">Mã phiếu xuất</p>
+                    <p class="info">@hoaDon.PX_MA</p>
+                </div>
+
+                <div class="row ali-center detail__item">
+                    <p class="title">Số điện thoại khách</p>
+                    <p class="info">@hoaDon.KH_SDT</p>
+                </div>
+
+                <div class="row ali-center detail__item">
+                    <p class="title">Tổng tiền</p>
+                    <p class="info">@hoaDon.PX_TONGTIEN</p>
+                </div>
+            </div>
+
+            <div class="h-4">
+                <div class="row ali-center detail__item">
+                    <p class="title">Ngày nhập</p>
+                    <p class="info">@hoaDon.PX_NGAYXUAT</p>
+                </div>
+
+                <div class="row ali-center detail__item">
+                    <p class="title">Mã nhân viên</p>
+                    <p class="info">@hoaDon.NV_ID</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-detail-order">
+            @Html.Partial("_ListChiTietDonHang", Model)
+        </div>
+    </div>
+
+    <div class="success-container">
+        <p>Cập nhập đơn hàng thành công!</p>
+        <button>OK</button>
+    </div>
+
+    <div class="error-container">
+        <p>Cập nhập đơn hàng thất bại</p>
+        <button>OK</button>
+    </div>
+</div>
+
+<script>
+    var table = $(".data-view");
+    var firstRow = $(".row-item").first();
+    var refreshBtn = $(".refresh-btn");
+    var addBtn = $(".add-btn");
+    var updateBtn = $(".update-btn");
+    var form = new Validate("#admin__form");
+    var closeBtn = $(".success-container button");
+    var closeBtn2 = $(".error-container button");
+    var table = $(".data-view");
+    var collapsedBtn = $(".collapsed-btn");
+
+    table.css("margin-top", $(".heading").height() + "px");
+
+    collapsedBtn.click(e => {
+        document.querySelector("#admin__form").classList.toggle("collapsed");
+    });
+
+    $("#admin__form").submit(e => {
+        table.css("margin-top", $(".heading").height() + "px");
+    });
+
+    $(".heading i").click(e => {
+        $.ajax({
+            url: "DonHang/Index",
+            success: function (result) {
+                $("#content").html(result);
+            }
+        });
+    });
+
+    addBtn.click(e => {
+        form.onSubmit = function (value) {
+            $.ajax({
+                url: "/DonHang/AddDetail/",
+                type: "get",
+                data: $("#admin__form").serialize(),
+                success: function (result) {
+                    $(".data-view").html(result);
+                    $(".success-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".success-container.active").removeClass("active");
+                    }, 1500);
+                },
+                error: function (result) {
+                    $(".error-container").addClass("active");
+
+                    setTimeout(() => {
+                    }, 1500);
+                }
+            });
+        }
+    });
+
+    updateBtn.click(e => {
+        form.onSubmit = function (value) {
+            $.ajax({
+                url: "/DonHang/UpdateDetail/",
+                type: "get",
+                data: $("#admin__form").serialize(),
+                success: function (result) {
+                    $(".data-view").html(result);
+                    $(".success-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".success-container.active").removeClass("active");
+                    }, 1500);
+                },
+                error: function (result) {
+                    $(".error-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".error-container.active").removeClass("active");
+                    }, 1500);
+                }
+            });
+        }
+    });
+
+    // Tắt thông báo
+    closeBtn.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    closeBtn2.click(e => {
+        e.target.parentElement.classList.remove("active");
+    });
+
+    // Làm mới form
+    refreshBtn.click(e => {
+        ClearForm();
+    });
+
+    function ClearForm() {
+        var checkeds = $("input[type=radio]").filter(":checked");
+
+        $("input[name=NV_HOTEN]").val("");
+        $("input[name=NV_NGAYSINH]").val("");
+        $("input[name=NV_DIACHI]").val("");
+        $("input[name=NV_SDT]").val("");
+
+        Array.from(checkeds).forEach(checked => {
+            checked.checked = false;
+        });
+
+        RefreshAnimate();
+    }
+</script>

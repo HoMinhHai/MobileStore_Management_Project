@@ -1,0 +1,99 @@
+﻿@model IEnumerable<DAMH_MuaBanVaSuaChuaDienThoai.Models.DonHang>
+
+<style>
+    td a {
+        color: blue !important;
+    }
+</style>
+
+<table class="table">
+    <tr class="table-heading"></tr>
+    <tr class="table-heading relationship">
+        <th>
+            Mã hóa đơn
+        </th>
+        <th>
+            SĐT khách hàng
+        </th>
+        <th>
+            Tên nhân viên
+        </th>
+        <th>
+            Ngày xuất
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+        <th>
+            Chức năng
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="row-item">
+            <td id="@Html.DisplayNameFor(model => model.PX_MA)">
+                @Html.DisplayFor(modelItem => item.PX_MA)
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.KH_SDT)">
+                @Html.DisplayFor(modelItem => item.KH_SDT)
+            </td>
+            <td style="text-align: left;" id="@Html.DisplayNameFor(model => model.NV_TEN)">
+                @item.NV_ID. @item.NV_TEN
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.PX_NGAYXUAT)">
+                @item.PX_NGAYXUAT.ToString("dd/MM/yyyy")
+            </td>
+            <td id="@Html.DisplayNameFor(model => model.PX_TONGTIEN)">
+                @Html.DisplayFor(modelItem => item.PX_TONGTIEN)
+            </td>
+            <td>
+                <p class="detail ma-b-12" data-link="/DonHang/ChiTietDonHang/@item.PX_MA?ngayXuat=@item.PX_NGAYXUAT">Chi tiết</p>
+                <p class="remove" data-link="/DonHang/Remove/@item.PX_MA?ngayXuat=@item.PX_NGAYXUAT ">Xóa</p>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    var details = $(".detail");
+    var removes = $("td .remove");
+    $(".table-heading").css("top", $("#admin__form").height() + "px")
+
+
+    var rows = $(".row-item");
+
+    Array.from(details).forEach(detail => {
+        detail.addEventListener("click", e => {
+            $.ajax({
+                url: detail.dataset.link,
+                success: function (result) {
+                    $("#content").html(result);
+                }
+            });
+        });
+    });
+
+    Array.from(removes).forEach(remove => {
+        remove.addEventListener("click", e => {
+            $.ajax({
+                url: remove.dataset.link,
+                success: function (result) {
+                    $(".data-view").html(result);
+                    $(".success-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".success-container.active").removeClass("active");
+                    }, 1500);
+                },
+                error: function (result) {
+                    $(".error-container").addClass("active");
+
+                    setTimeout(() => {
+                        $(".error-container.active").removeClass("active");
+                    }, 1500);
+                }
+            });
+        });
+    })
+</script>    

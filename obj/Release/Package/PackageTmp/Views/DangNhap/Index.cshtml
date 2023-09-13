@@ -1,0 +1,128 @@
+﻿
+@{
+    Layout = null;
+}
+
+<style>
+    #container {
+        width: 100%;
+        height: 100vh;
+        background-color: #999;
+        position: relative;
+    }
+
+    #DangNhap {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 900px;
+        height: 500px;
+        border-radius: 20px;
+        background-color: #fff;
+        display: flex;
+    }
+
+    .DangNhap__img {
+        width: 45%;
+        margin: 80px 0 80px 40px;
+    }
+
+        .DangNhap__img img {
+            border-radius: 40px;
+        }
+
+
+    .DangNhap__ThongTin {
+        padding: 60px;
+        /*width: 55%;*/
+        margin-top: 30px;
+    }
+
+    .DangNhap__Header {
+        width: 30px;
+        width: 100%;
+        text-align: center;
+    }
+
+        .DangNhap__Header h1 {
+            font-size: 30px;
+            padding: 30px 0;
+        }
+
+    .DangNhap__input {
+        margin: 16px 0;
+    }
+
+        .DangNhap__input input,
+        .DangNhap__input button {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            outline: none;
+            font-size: 18px;
+        }
+
+        .DangNhap__input button {
+            background-color: #48b3f5;
+            height: 50px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            border: 1px solid #777;
+        }
+
+    button:hover {
+        background-color: #0088dd;
+    }
+
+    .DangNhap__QuenMK {
+        text-align: right;
+    }
+
+        .DangNhap__QuenMK a:hover {
+            color: #33b1ff;
+        }
+</style>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập hệ thống</title>
+    <link href="~/Assets/Css/base.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="container">
+        <div id="DangNhap">
+            <div class="DangNhap__img">
+                <img src="~/Assets/Image/CuaHang/DangNhap.png" alt="Hình ảnh có thể là nền cho đăng nhập" width="100%" height="100%" />
+            </div>
+            @using (@Html.BeginForm("Index", "DangNhap"))
+            {
+                <div class="DangNhap__ThongTin">
+                    <div class="DangNhap__Header">
+                        <h1>ĐĂNG NHẬP HỆ THỐNG</h1>
+                    </div>
+                    <div class="DangNhap__input">
+                        <input type="text" placeholder="Tên đăng nhập" name="user" />
+                    </div>
+                    <div class="DangNhap__input">
+                        <input type="password" placeholder="Mật khẩu" name="pass" />
+                    </div>
+                    <p style="color: red;">@ViewData["ThongBao"]</p>
+                    <div class="DangNhap__input">
+                        <button>ĐĂNG NHẬP</button>
+                    </div>
+                    <div class="DangNhap__QuenMK">
+                        <a href="">Bạn quên mật khẩu?</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

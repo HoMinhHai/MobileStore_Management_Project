@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Repair";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #content{
+        margin-top: 100px;  
+    }
+</style>
+
+<div id="content">
+    <form action="/Store/CommentPartial" method="post">
+        <button>asd</button>
+    </form>
+
+    <div class="forsure">
+        @Html.Partial("CommentPartial") 
+    </div>
+</div>
